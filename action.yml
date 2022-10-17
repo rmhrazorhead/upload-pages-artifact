@@ -44,7 +44,6 @@ runs:
 
     # Massage the paths for Windows only
     - name: Archive artifact
-      shell: bash
       if: runner.os == 'Windows'
       run: |
         tar \
