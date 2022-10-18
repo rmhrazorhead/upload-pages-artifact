@@ -44,18 +44,16 @@ runs:
 
     # Massage the paths for Windows only
     - name: Archive artifact
+      shell: cmd
       if: runner.os == 'Windows'
       run: |
-        tar \
-          --dereference --hard-dereference \
-          --directory "$INPUT_PATH" \
-          -cvf "$RUNNER_TEMP\artifact.tar" \
-          --exclude=.git \
-          --exclude=.github \
-          --force-local \
+        tar ^
+          --dereference ^
+          --directory "${{ inputs.path }}" ^
+          -cvf "${{ runner.temp }}\artifact.tar" ^
+          --exclude=.git ^
+          --exclude=.github ^
           "."
-      env:
-        INPUT_PATH: ${{ inputs.path }}
 
     - name: Upload artifact
       uses: actions/upload-artifact@main
